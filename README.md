@@ -8,7 +8,7 @@ Automatically configure Zed Code Editor with Synthetic's AI models by querying t
 - 📝 **Dynamic config**: Updates Zed's `settings.json` with discovered models
 - 🔑 **API key management**: Persists API key to shell profiles (`.zshenv` for zsh, `.bashrc` for bash)
 - ✅ **Syntax validation**: Validates shell config files before modification
-- 🛡️ **Backup protection**: Creates backups if existing configs have syntax errors
+- 🛡️ **Backup protection**: Creates backups of Zed settings and shell configs before modification
 
 ## Requirements
 
