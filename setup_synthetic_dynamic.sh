@@ -109,6 +109,10 @@ fi
 # Initialize if empty
 if [ ! -f "$ZED_SETTINGS" ] || [ ! -s "$ZED_SETTINGS" ]; then
     echo '{}' > "$ZED_SETTINGS"
+else
+    BACKUP_FILE="${ZED_SETTINGS}.backup.$(date +%Y%m%d_%H%M%S)"
+    cp "$ZED_SETTINGS" "$BACKUP_FILE"
+    echo -e "${GREEN}✓${NC} Backed up existing settings to: $BACKUP_FILE"
 fi
 
 # Build full config block
