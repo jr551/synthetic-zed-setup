@@ -115,31 +115,15 @@ else
     echo -e "${GREEN}✓${NC} Backed up existing settings to: $BACKUP_FILE"
 fi
 
-# Build full config block
-SYNTHETIC_CONFIG=$(cat <<EOF
-{
-  "language_models": {
-    "openai_compatible": {
-      "Synthetic": {
-        "api_url": "https://api.synthetic.new/v1",
-        "available_models": ${MODELS_JSON}
-      }
-    }
-  }
-}
-EOF
-)
-
-# Merge with existing settings using jq
-# Handles nested merge: if language_models.openai_compatible exists, merge Synthetic into it
-jq '. + {
+# Merge with existing settings using jq with proper variable passing
+jq --argjson models "$MODELS_JSON" '. + {
   "language_models": (
     (.language_models // {}) + {
       "openai_compatible": (
         (.language_models.openai_compatible // {}) + {
           "Synthetic": {
             "api_url": "https://api.synthetic.new/v1",
-            "available_models": '"$(echo "$MODELS_JSON" | jq -c .)"'
+            "available_models": $models
           }
         }
       )
